@@ -34,27 +34,6 @@ def compare_ergas(x_true, x_pred, ratio):
     return (100 / ratio) * np.sqrt(sum_ergas / x_true.shape[0])
 
 
-def compare_sam(x_true, x_pred):
-    """
-    :param x_true: HSI image：(H, W, C)
-    :param x_pred: HSI image：(H, W, C)
-    :return: 计算原始高光谱数据与重构高光谱数据的光谱角相似度
-    """
-    num = 0
-    sum_sam = 0
-    x_true, x_pred = x_true.astype(np.float32), x_pred.astype(np.float32)
-    for x in range(x_true.shape[0]):
-        for y in range(x_true.shape[1]):
-            tmp_pred = x_pred[x, y].ravel()
-            tmp_true = x_true[x, y].ravel()
-            if np.linalg.norm(tmp_true) != 0 and np.linalg.norm(tmp_pred) != 0:
-                sum_sam += np.arccos(
-                    np.inner(tmp_pred, tmp_true) / (np.linalg.norm(tmp_true) * np.linalg.norm(tmp_pred)))
-                num += 1
-    sam_deg = (sum_sam / num) * 180 / np.pi
-    return sam_deg
-
-
 def compare_corr(x_true, x_pred):
     """
     Calculate the cross correlation between x_pred and x_true.
@@ -68,23 +47,6 @@ def compare_corr(x_true, x_pred):
     denominator = np.sqrt(np.sum(x_true * x_true, axis=1)
                           * np.sum(x_pred * x_pred, axis=1)).reshape(-1, 1)
     return (numerator / denominator).mean()
-
-
-def img_2d_mat(x_true, x_pred):
-    """
-    # 将三维的多光谱图像转为2位矩阵
-    :param x_true: (H, W, C)
-    :param x_pred: (H, W, C)
-    :return: a matrix which shape is (C, H * W)
-    """
-    h, w, c = x_true.shape
-    x_true, x_pred = x_true.astype(np.float32), x_pred.astype(np.float32)
-    x_mat = np.zeros((c, h * w), dtype=np.float32)
-    y_mat = np.zeros((c, h * w), dtype=np.float32)
-    for i in range(c):
-        x_mat[i] = x_true[:, :, i].reshape((1, -1))
-        y_mat[i] = x_pred[:, :, i].reshape((1, -1))
-    return x_mat, y_mat
 
 
 def compare_rmse(x_true, x_pred):
