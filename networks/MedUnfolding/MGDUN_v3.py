@@ -30,8 +30,6 @@ class Encoding_Block(torch.nn.Module):
     def forward(self, input):
 
         out1 = self.act(self.conv1(input))
-        # out2 = self.act(self.conv2(out1))
-        # out3 = self.act(self.conv3(out2))
         f_e = self.conv4(out1)
         down = self.act(self.conv5(f_e))
         return f_e, down
@@ -42,8 +40,6 @@ class Encoding_Block_End(torch.nn.Module):
         super(Encoding_Block_End, self).__init__()
 
         self.conv1 = torch.nn.Conv2d(in_channels=c_in, out_channels=n_feat, kernel_size=3, padding=3 // 2)
-        # self.conv2 = torch.nn.Conv2d(in_channels=n_feat, out_channels=n_feat, kernel_size=3, padding=3 // 2)
-        # self.conv3 = torch.nn.Conv2d(in_channels=n_feat, out_channels=n_feat, kernel_size=3, padding=3 // 2)
         self.conv4 = torch.nn.Conv2d(in_channels=n_feat, out_channels=c_in, kernel_size=3, padding=3 // 2)
         self.act =  torch.nn.PReLU()
         self.reset_parameters()
@@ -55,8 +51,6 @@ class Encoding_Block_End(torch.nn.Module):
 
     def forward(self, input):
         out1 = self.act(self.conv1(input))
-        # out2 = self.act(self.conv2(out1))
-        # out3 = self.act(self.conv3(out2))
         f_e = self.conv4(out1)
         return f_e
 
