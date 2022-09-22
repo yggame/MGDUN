@@ -225,19 +225,3 @@ def batch_accessment(x_true, x_pred, data_range, ratio, multi_dimension=False):
     for met in avg_score.keys():
         avg_score[met] = np.mean([score[met] for score in scores])
     return avg_score
-
-# from scipy import io as sio
-# im_out = np.array(sio.loadmat('/home/zhwzhong/PycharmProject/HyperSR/SOAT/HyperSR/SRindices/Chikuse_EDSRViDeCNN_Blocks=9_Feats=256_Loss_H_Real_1_1_X2X2_N5new_BS32_Epo60_epoch_60_Fri_Sep_20_21:38:44_2019.mat')['output'])
-# im_gt = np.array(sio.loadmat('/home/zhwzhong/PycharmProject/HyperSR/SOAT/HyperSR/SRindices/Chikusei_test.mat')['gt'])
-#
-# sum_rmse, sum_sam, sum_psnr, sum_ssim, sum_ergas = [], [], [], [], []
-# for i in range(im_gt.shape[0]):
-#     print(im_out[i].shape)
-#     score = quality_assessment(x_pred=im_out[i], x_true=im_gt[i], data_range=1, ratio=4, multi_dimension=False, block_size=8)
-#     sum_rmse.append(score['RMSE'])
-#     sum_psnr.append(score['MPSNR'])
-#     sum_ssim.append(score['MSSIM'])
-#     sum_sam.append(score['SAM'])
-#     sum_ergas.append(score['ERGAS'])
-#
-# print(np.mean(sum_rmse), np.mean(sum_psnr), np.mean(sum_ssim), np.mean(sum_sam))
