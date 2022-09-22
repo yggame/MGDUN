@@ -98,11 +98,11 @@ class DatasetIXI(Dataset):
         self.data_path = "F:\data\IXI_dataset/"
 
         if self.mode == 'train':
-            self.samples = glob.glob('F:\data\IXI_dataset/IXI-T2-PD/train/*.h5')
+            self.samples = glob.glob('**.h5')
         elif self.mode == 'val':
-            self.samples = glob.glob('F:\data\IXI_dataset/IXI-T2-PD/val/*.h5')
+            self.samples = glob.glob('**.h5')
         else:
-            self.samples = glob.glob('F:\data\IXI_dataset/IXI-T2-PD/test/*.h5')
+            self.samples = glob.glob('**.h5')
 
     def __getitem__(self, index):
         data = h5py.File(self.samples[index])
