@@ -100,11 +100,11 @@ class Brats_SR(Dataset):
         # self.data_path = "/home/z/DataStorage/YangGang_dataset/MR_SR/"
 
         if self.mode == 'train':
-            self.samples = glob.glob('/home/z/DataStorage/YangGang_dataset/MR_SR/train/*.h5')
+            self.samples = glob.glob('**.h5')
         # elif self.mode == 'val':
-        #     self.samples = glob.glob('/home/z/DataStorage/YangGang_dataset/IXI_dataset/IXI-T2-PD/val/*.h5')
+        #     self.samples = glob.glob('**.h5')
         else:
-            self.samples = glob.glob('/home/z/DataStorage/YangGang_dataset/MR_SR/test/*.h5')
+            self.samples = glob.glob('**.h5')
 
     def __getitem__(self, index):
         data = h5py.File(self.samples[index])
