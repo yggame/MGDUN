@@ -16,7 +16,7 @@ import sys
 import logging
 from tqdm import tqdm
 
-from networks import EDSR, SANet, MedU, MGDUN_V4
+from networks import EDSR, SANet, MedU, MGDUN
 from data.dataset_IXI import DatasetIXI, RandomGenerator
 from networks.metrics import *
 
@@ -29,7 +29,7 @@ def build_args():
     # parser = Trainer.add_argparse_args(parser)
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     # Basic Training Control
-    parser.add_argument('--exp_name', type=str, default='MGDUN_v4_IXI',              # TODO exp_name
+    parser.add_argument('--exp_name', type=str, default='MGDUN_IXI',              # TODO exp_name
                             help='name of the experiment. It decides where to store samples and models')
     parser.add_argument('--batch_size', default=4, type=int)
     parser.add_argument('--num_workers', default=8, type=int)
@@ -155,7 +155,7 @@ def main(args):
         os.makedirs(snapshot_path)
     
     # model
-    model = MGDUN_V4(1,
+    model = MGDUN(1,
                 args.n_feats, 
                 args.n_resblocks,  
                 args.color_range, 
@@ -196,9 +196,9 @@ def main(args):
     val_load = DataLoader(valset, batch_size=batch_size, shuffle=False, num_workers=0)
     test_load = DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=0)
 
-    # trainset = DatasetIXI(data_dir='/home/z/DataStorage/YangGang_dataset/T2Net_IXI/h5/train', args=args)
-    # valset = DatasetIXI(data_dir='/home/z/DataStorage/YangGang_dataset/T2Net_IXI/h5/val', args=args, validtion_flag=True)
-    # testset = DatasetIXI(data_dir='/home/z/DataStorage/YangGang_dataset/T2Net_IXI/h5/test', args=args, validtion_flag=True)
+    # trainset = DatasetIXI(data_dir='**/train', args=args)
+    # valset = DatasetIXI(data_dir='**/val', args=args, validtion_flag=True)
+    # testset = DatasetIXI(data_dir='**/test', args=args, validtion_flag=True)
     # train_load = DataLoader(
     #                 dataset=trainset,
     #                 batch_size=args.batch_size,
